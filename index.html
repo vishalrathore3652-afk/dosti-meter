@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishu & Joy Dosti Meter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        /* Header and Photo */
+        .header {
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #1e3c72;
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #777;
+            font-size: 1rem;
+        }
+        .photo-container {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-top: 15px;
+            border: 4px solid #1e3c72;
+        }
+        .photo-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Names Label */
+        .names-label {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .names-label span {
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        .kishu { background-color: #3b82f6; } /* Blue for Kishu */
+        .joy { background-color: #22c55e; } /* Green for Joy */
+
+        /* Speedometer Styles */
+        .gauge-section {
+            margin: 30px 0;
+            position: relative;
+        }
+        .gauge-container {
+            position: relative;
+            width: 260px;
+            height: 130px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .gauge-body {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: conic-gradient(from 270deg, #3b82f6 0deg 60deg, #eab308 60deg 120deg, #ef4444 120deg 180deg);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .gauge-inner {
+            width: 190px;
+            height: 190px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 35px;
+            left: 35px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 20px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .gauge-value {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .needle {
+            width: 5px;
+            height: 110px;
+            background: #333;
+            position: absolute;
+            bottom: 0;
+            left: 127.5px;
+            transform-origin: bottom center;
+            transform: rotate(-90deg); /* Range: -90deg to +90deg */
+            transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+        .needle-pivot {
+            width: 15px;
+            height: 15px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -7.5px;
+            left: 122.5px;
+            z-index: 3;
+        }
+        
+        /* Status Box */
+        .status-box {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            margin-top: 10px;
+        }
+        .status-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .status-desc {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        /* Action Button */
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+            transition: transform 0.1s;
+        }
+        button:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Bhai Dosti Meter</h1>
+        <p>The Ultimate Brotherhood Score</p>
+        
+        <div class="photo-container">
+            <!-- Using your provided photo -->
+            <img src="image_3.png" alt="Kishu and Joy">
+        </div>
+        
+        <div class="names-label">
+            <span class="kishu">Kishu</span>
+            <span>&</span>
+            <span class="joy">Joy</span>
+        </div>
+    </div>
+    
+    <div class="gauge-section">
+        <div class="gauge-container">
+            <div class="gauge-body"></div>
+            <div class="gauge-inner">
+                <span class="gauge-value" id="scoreText">0%</span>
+            </div>
+            <div class="needle" id="needle"></div>
+            <div class="needle-pivot"></div>
+        </div>
+    </div>
+    
+    <div class="status-box">
+        <div class="status-title" id="statusTitle">Analyzing...</div>
+        <div class="status-desc" id="statusDesc">Tap the button to scan recent chat vibes!</div>
+    </div>
+    
+    <button onclick="updateMeter()">📡 Scan Brotherhood Frequency</button>
+</div>
+
+<script>
+    function updateMeter() {
+        // Random score favoring a solid relationship (50% to 100%)
+        const score = Math.floor(Math.random() * 51) + 50;
+        
+        // Map 0-100 score to speedometer degrees (-90deg to +90deg)
+        const degrees = -90 + (score / 100) * 180;
+        
+        document.getElementById('needle').style.transform = `rotate(${degrees}deg)`;
+        document.getElementById('scoreText').innerText = score + "%";
+        
+        const title = document.getElementById('statusTitle');
+        const desc = document.getElementById('statusDesc');
+        
+        if (score >= 90) {
+            title.innerText = "🔥 Unstoppable Duo!";
+            title.style.color = "#ef4444"; // Red
+            desc.innerText = "Pure Jai-Veeru energy! You two are perfectly in sync. Non-stop banter, inside jokes, and unconditional support. Legendary status!";
+        } else if (score >= 75) {
+            title.innerText = "⚡ Solid Brotherhood";
+            title.style.color = "#eab308"; // Yellow/Orange
+            desc.innerText = "The bond is strong! You share a great connection with plenty of laughs and regular check-ins. Keep that awesome momentum going!";
+        } else {
+            title.innerText = "Convo Status: Stable";
+            title.style.color = "#3b82f6"; // Blue
+            desc.innerText = "You're clearly tight, but maybe the chat's a bit quiet today? Go spam him with a meme right now to boost the meter!";
+        }
+    }
+
+    // Run automatically when the site opens
+    window.onload = updateMeter;
+</script>
+
+</body>
+</html>
