@@ -241,7 +241,22 @@
 </div>
 
 <script>
+    // Initialize Audio Object
+    const bgMusic = new Audio('music.mp3');
+
+    // 5-second delayed play setup
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            bgMusic.play().catch(err => {
+                console.log("Browser waiting for user interaction to allow audio playback.");
+            });
+        }, 5000); // 5000ms = 5 seconds
+    });
+
     function updateMeter() {
+        // Play music if it isn't playing already when button is tapped
+        bgMusic.play().catch(err => console.log(err));
+
         const score = Math.floor(Math.random() * 51) + 50;
         const degrees = -90 + (score / 100) * 180;
         
@@ -266,7 +281,9 @@
         }
     }
 
-    window.onload = updateMeter;
+    window.onload = function() {
+        updateMeter();
+    };
 </script>
 
 </body>
