@@ -22,7 +22,7 @@
         }
         .container {
             background-color: #fff;
-            padding: 30px;
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             max-width: 480px;
@@ -32,16 +32,16 @@
         
         /* Header and Photo */
         .header {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         .header h1 {
             color: #1e3c72;
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 5px;
         }
         .header p {
             color: #777;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         .photo-container {
             width: 100%;
@@ -63,7 +63,7 @@
             gap: 15px;
             margin-top: 10px;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         .names-label span {
             color: #fff;
@@ -75,19 +75,19 @@
 
         /* Speedometer Styles */
         .gauge-section {
-            margin: 30px 0;
+            margin: 25px 0 15px;
             position: relative;
         }
         .gauge-container {
             position: relative;
-            width: 260px;
-            height: 130px;
+            width: 240px;
+            height: 120px;
             margin: 0 auto;
             overflow: hidden;
         }
         .gauge-body {
-            width: 260px;
-            height: 260px;
+            width: 240px;
+            height: 240px;
             border-radius: 50%;
             background: conic-gradient(from 270deg, #3b82f6 0deg 60deg, #eab308 60deg 120deg, #ef4444 120deg 180deg);
             position: absolute;
@@ -95,31 +95,31 @@
             left: 0;
         }
         .gauge-inner {
-            width: 190px;
-            height: 190px;
+            width: 175px;
+            height: 175px;
             background: #fff;
             border-radius: 50%;
             position: absolute;
-            top: 35px;
-            left: 35px;
+            top: 32.5px;
+            left: 32.5px;
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            padding-top: 20px;
+            padding-top: 18px;
             box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
         }
         .gauge-value {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: #1e3c72;
         }
         .needle {
             width: 5px;
-            height: 110px;
+            height: 100px;
             background: #333;
             position: absolute;
             bottom: 0;
-            left: 127.5px;
+            left: 117.5px;
             transform-origin: bottom center;
             transform: rotate(-90deg); /* Range: -90deg to +90deg */
             transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
@@ -134,39 +134,39 @@
             border-radius: 50%;
             position: absolute;
             bottom: -7.5px;
-            left: 122.5px;
+            left: 112.5px;
             z-index: 3;
         }
         
         /* Status Box */
         .status-box {
             background-color: #f8fafc;
-            padding: 20px;
+            padding: 15px;
             border-radius: 12px;
             border: 1px solid #e2e8f0;
             margin-top: 10px;
         }
         .status-title {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
         .status-desc {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #555;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         /* Action Button */
         button {
             width: 100%;
-            padding: 15px;
-            margin-top: 25px;
+            padding: 14px;
+            margin: 20px 0;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             border: none;
             border-radius: 12px;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
@@ -174,6 +174,24 @@
         }
         button:active {
             transform: scale(0.97);
+        }
+
+        /* Live Chat Section */
+        .chat-section {
+            margin-top: 15px;
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 20px;
+        }
+        .chat-section h2 {
+            font-size: 1.2rem;
+            color: #1e3c72;
+            margin-bottom: 12px;
+        }
+        .chat-frame {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
     </style>
 </head>
@@ -185,7 +203,6 @@
         <p>The Ultimate Brotherhood Score</p>
         
         <div class="photo-container">
-            <!-- Using your provided photo -->
             <img src="image_3.png" alt="Kishu and Joy">
         </div>
         
@@ -213,14 +230,19 @@
     </div>
     
     <button onclick="updateMeter()">📡 Scan Brotherhood Frequency</button>
+
+    <!-- Embedded Live Cbox Chat -->
+    <div class="chat-section">
+        <h2>💬 Live Brother Chat</h2>
+        <div class="chat-frame">
+            <iframe src="https://www5.cbox.ws/box/?boxid=965489&boxtag=bZqXi6" width="100%" height="400" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto"></iframe>
+        </div>
+    </div>
 </div>
 
 <script>
     function updateMeter() {
-        // Random score favoring a solid relationship (50% to 100%)
         const score = Math.floor(Math.random() * 51) + 50;
-        
-        // Map 0-100 score to speedometer degrees (-90deg to +90deg)
         const degrees = -90 + (score / 100) * 180;
         
         document.getElementById('needle').style.transform = `rotate(${degrees}deg)`;
@@ -231,20 +253,19 @@
         
         if (score >= 90) {
             title.innerText = "🔥 Unstoppable Duo!";
-            title.style.color = "#ef4444"; // Red
+            title.style.color = "#ef4444";
             desc.innerText = "Pure Jai-Veeru energy! You two are perfectly in sync. Non-stop banter, inside jokes, and unconditional support. Legendary status!";
         } else if (score >= 75) {
             title.innerText = "⚡ Solid Brotherhood";
-            title.style.color = "#eab308"; // Yellow/Orange
+            title.style.color = "#eab308";
             desc.innerText = "The bond is strong! You share a great connection with plenty of laughs and regular check-ins. Keep that awesome momentum going!";
         } else {
             title.innerText = "Convo Status: Stable";
-            title.style.color = "#3b82f6"; // Blue
-            desc.innerText = "You're clearly tight, but maybe the chat's a bit quiet today? Go spam him with a meme right now to boost the meter!";
+            title.style.color = "#3b82f6";
+            desc.innerText = "You're clearly tight, but maybe the chat's a bit quiet today? Drop a message in the chat box below to boost the score!";
         }
     }
 
-    // Run automatically when the site opens
     window.onload = updateMeter;
 </script>
 
